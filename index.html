@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0d0e" />
+  <title>UMBRAL Studio · v0.5</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="rail">
+      <div class="brandhead">
+        <div class="portal-mark" aria-hidden="true"><span></span></div>
+        <div class="brandcopy"><strong>UMBRAL</strong><small>S T U D I O</small></div>
+      </div>
+      <div class="rail-section">NAVEGAÇÃO</div>
+      <nav>
+        <button class="nav-btn active" data-view="studio"><span class="nav-icon">◈</span> Atelier</button>
+        <button class="nav-btn" data-view="archive"><span class="nav-icon">▤</span> Arquivo</button>
+        <button class="nav-btn" data-view="identity"><span class="nav-icon">◇</span> Identidade</button>
+      </nav>
+      <div class="rail-spacer"></div>
+      <div class="rail-note"><div class="small-ring"></div><p>ESTILO OFICIAL BASEADO EM<br><strong>A ORIGEM</strong></p></div>
+      <div class="rail-footer">UMBRAL <span>© STUDIO V0.5</span></div>
+    </aside>
+    <main class="workarea">
+      <header class="topbar"><div class="breadcrumb">UMBRAL <span>/</span> <b id="location-label">ATELIER</b></div><div class="right-status"><span class="status-dot"></span> <span id="environment-label">MODO LOCAL</span> <span class="top-sep"></span> VERSÃO 0.5 <button id="logout" class="logout-btn" hidden>SAIR</button></div></header>
+
+      <section id="studio-view" class="view active">
+        <div class="heading-row">
+          <div>
+            <div class="eyebrow">ATELIER DE CRIAÇÃO / 001</div>
+            <h1>Mesma alma, <em>controle total.</em></h1>
+            <p>Sem escurecimento obrigatório. Sem marca-d'água. Tudo editável.</p>
+          </div>
+          <div class="create-actions"><button class="quiet-btn" id="new-post">+ CRIAR POST</button><button class="quiet-btn story-btn" id="new-story">+ CRIAR STORY</button></div>
+        </div>
+
+        <div class="studio-grid">
+          <section class="canvas-panel">
+            <div class="panel-heading">
+              <div><span class="overline">COMPOSIÇÃO EM FOCO</span><h2 id="project-name">A Origem</h2></div>
+              <div class="panel-actions"><select id="format"><option value="portrait">FEED · 4:5</option><option value="square">QUADRADO · 1:1</option><option value="story">STORY · 9:16</option></select><button id="download-png">↓ EXPORTAR</button></div>
+            </div>
+            <div class="workbench"><div class="stage-frame"><canvas id="artboard" width="1080" height="1350" tabindex="0"></canvas></div></div>
+            <div class="stage-footer"><span>ARRASTE E REDIMENSIONE OS ELEMENTOS NA ARTE</span><span id="dimensions">1080 × 1350 PX</span></div>
+          </section>
+
+          <aside class="inspector">
+            <div class="inspector-header"><div class="overline">DIREÇÃO CRIATIVA</div><div class="inspector-title">Modelo oficial UMBRAL.</div><p>Baseado em <strong>A Origem</strong>. As variações continuam dentro desse mesmo DNA.</p></div>
+
+            <div class="field"><label for="background-preset">FUNDO OFICIAL</label><select id="background-preset"><option value="origem">A Origem · Oficial</option><option value="custom">Minha imagem importada</option><option value="none">Sem fundo · Preto profundo</option></select><p class="helper">Agora usamos a imagem original como padrão.</p></div>
+
+            <div class="field two-col">
+              <div><label for="overlay-enabled">ESCURECIMENTO</label><select id="overlay-enabled"><option value="off">Desligado</option><option value="on">Ligado</option></select></div>
+              <div><label for="overlay-opacity">INTENSIDADE</label><input id="overlay-opacity" type="range" min="0" max="80" value="0" /></div>
+            </div>
+
+            <details class="optional-effects"><summary>EFEITOS VISUAIS OPCIONAIS</summary>
+              <div class="style-options" id="style-options">
+                <button data-style="livre" class="style-item selected"><span class="swatch swatch-livre"></span> LIVRE</button>
+                <button data-style="portal" class="style-item"><span class="swatch swatch-portal"></span> PORTAL</button>
+                <button data-style="asfalto" class="style-item"><span class="swatch swatch-asfalto"></span> ASFALTO</button>
+                <button data-style="codigo" class="style-item"><span class="swatch swatch-codigo"></span> CÓDICE</button>
+              </div>
+            </details>
+
+            <div class="field"><label for="category">TIPO DE PUBLICAÇÃO</label><select id="category"><option value="origem">A Origem / Manifesto</option><option value="encontro">Encontro / Comboio</option><option value="boasvindas">Boas-vindas</option><option value="comunicado">Comunicado</option></select></div>
+            <div class="field"><label for="kicker">CHAMADA SUPERIOR</label><input id="kicker" maxlength="80" /></div>
+            <div class="field"><label for="title">TÍTULO PRINCIPAL</label><textarea id="title" rows="2" maxlength="80"></textarea></div>
+            <div class="field"><label for="subtitle">TEXTO PRINCIPAL</label><textarea id="subtitle" rows="8" maxlength="1200"></textarea></div>
+            <div class="field"><label for="event-date">RODAPÉ / DATA</label><input id="event-date" maxlength="80" /></div>
+            <div class="field"><label for="caption">LEGENDA DO INSTAGRAM</label><textarea id="caption" rows="4" maxlength="1100"></textarea><button id="copy-caption" class="secondary-wide">COPIAR LEGENDA</button></div>
+
+            <div class="field selector-box">
+              <label>ELEMENTO SELECIONADO</label>
+              <div id="selected-label" class="selected-badge">Nenhum</div>
+              <div class="two-col compact-grid">
+                <div><label for="font-size">TAMANHO DA FONTE</label><input id="font-size" type="range" min="12" max="160" value="44" /></div>
+                <div><label for="box-width">LARGURA DO BLOCO</label><input id="box-width" type="range" min="10" max="95" value="72" /></div>
+              </div>
+              <div class="two-col compact-grid">
+                <div><label for="element-align">ALINHAMENTO</label><select id="element-align"><option value="left">Esquerda</option><option value="center">Centro</option><option value="right">Direita</option></select></div>
+                <div><label for="element-color">COR</label><input id="element-color" type="color" value="#ece2da" /></div>
+              </div>
+              <div class="two-col compact-grid">
+                <div><label for="element-opacity">OPACIDADE</label><input id="element-opacity" type="range" min="10" max="100" value="100" /></div>
+                <div><label for="element-scale">ESCALA / TAMANHO</label><input id="element-scale" type="range" min="10" max="200" value="100" /></div>
+              </div>
+              <label class="checkbox-line"><input id="element-italic" type="checkbox" /> Itálico</label>
+            </div>
+
+            <div class="field ai-section"><label for="briefing">DIREÇÃO PARA A IA <span class="tag">NEXFORCE ROUTER</span></label><textarea id="briefing" rows="3" maxlength="1500" placeholder="Ex.: carrossel sobre a origem do UMBRAL, mantendo o mesmo clima de A Origem..."></textarea><button id="generate-ai" class="primary-wide ai-generate">✧ GERAR COM IA <span>↗</span></button><button id="draft" class="secondary-wide">SUGESTÃO OFFLINE</button><p class="helper" id="ai-status">A IA deve sugerir dentro do estilo oficial, sem inventar moda.</p></div>
+
+            <div class="inspector-bottom">
+              <label class="file-button" for="bg-upload">↥ ADICIONAR FOTO DE FUNDO</label><input id="bg-upload" type="file" accept="image/*" hidden/>
+              <button class="text-btn" id="remove-photo">RESTAURAR FUNDO OFICIAL</button>
+              <label class="file-button" for="logo-upload">↥ INSERIR BRASÃO</label><input id="logo-upload" type="file" accept="image/*" hidden/>
+              <button class="text-btn" id="clear-logo">REMOVER BRASÃO</button>
+              <button id="save-project" class="primary-wide">SALVAR PROJETO <span>↗</span></button>
+              <div id="notice" role="status"></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="archive-view" class="view secondary-page"><div class="eyebrow">BIBLIOTECA PRIVADA / 002</div><h1>O que fica <em>registrado.</em></h1><p>Projetos locais e, quando conectados, cópia privada na nuvem.</p><div id="archive-grid" class="archive-grid"></div></section>
+      <section id="identity-view" class="view secondary-page"><div class="eyebrow">PATRIMÔNIO VISUAL / 003</div><h1>Uma marca. <em>Um caráter.</em></h1><p>Agora o padrão é a imagem original de A Origem, com tipografia editorial e liberdade de edição elemento por elemento.</p><div class="identity-grid"><div class="identity-hero"><div class="identity-sigil"><div class="portal-mark giant"><span></span></div></div><b>UMBRAL</b><span>SEM MARCA-D'ÁGUA NAS ARTES</span></div><div class="identity-aside"><h2>Disciplina visual</h2><p>Preto profundo. Carmesim discreto. Marfim. Tipografia serifada monumental. Efeitos apenas opcionais.</p><div class="palette"><div style="background:#0B0D0E"></div><div style="background:#14090A"></div><div style="background:#7c252b"></div><div style="background:#d1c3bc"></div><div style="background:#f1ede8"></div></div><p class="helper">O fundo oficial é carregado automaticamente e pode ser restaurado a qualquer momento.</p></div></div></section>
+    </main>
+  </div>
+  <div id="login-gate" class="login-gate" hidden>
+    <form id="login-form" class="login-panel">
+      <div class="portal-mark login-mark"><span></span></div>
+      <p class="eyebrow">ACESSO RESERVADO / UMBRAL STUDIO</p>
+      <h2>Entre no <em>seu atelier.</em></h2>
+      <p>Esta biblioteca é privada. Use o e-mail e a senha cadastrados no Supabase.</p>
+      <label for="login-email">E-MAIL</label><input id="login-email" type="email" required autocomplete="username" placeholder="seu@email.com" />
+      <label for="login-password">SENHA</label><input id="login-password" type="password" required autocomplete="current-password" />
+      <button id="login-submit" class="primary-wide" type="submit">ENTRAR NO STUDIO ↗</button>
+      <p class="login-error" id="login-error" role="alert"></p>
+    </form>
+  </div>
+  <script src="cloud.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
