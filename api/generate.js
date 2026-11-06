@@ -1,0 +1,2 @@
+import {reply,authorize,generate} from '../lib-api.mjs';
+export default async function handler(req,res){if(req.method!=='POST')return reply(res,405,{error:'Método não permitido.'});let a=await authorize(req);if(!a.ok)return reply(res,a.status,{error:a.error});let out=await generate(req.body);let {status,...data}=out;reply(res,status,data)}
