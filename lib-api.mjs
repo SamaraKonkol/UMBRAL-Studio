@@ -40,7 +40,7 @@ export async function generate(body){
   let t=data?.choices?.[0]?.message?.content;
   if(Array.isArray(t))t=t.map(x=>x.text||'').join('');
   if(typeof t!=='string')return{status:502,error:'Resposta não textual da IA.'};
-  let parsed;try{parsed=JSON.parse(t.replace(/^\\s*\`\`\`(?:json)?\\s*|\\s*\`\`\`\\s*$/gi,'').trim())}catch{return{status:502,error:'A IA retornou um texto em formato inválido.'}}
+  let parsed;try{const i=t.indexOf('{'),j=t.lastIndexOf('}');if(i<0||j<i)throw Error('Sem JSON');parsed=JSON.parse(t.slice(i,j+1))}catch{return{status:502,error:'A IA retornou um texto em formato inválido.'}}
   let proposal={};for(let [k,lim] of Object.entries(fields))if(typeof parsed[k]==='string')proposal[k]=parsed[k].trim().slice(0,lim);
   if(!Object.keys(proposal).length)return{status:502,error:'A IA não gerou uma proposta válida.'};
   return{status:200,proposal};
