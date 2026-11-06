@@ -87,7 +87,7 @@ function draw(edit=true){
  let {w,h,label}=format[project.format]||format.portrait;
  if(canvas.width!==w)canvas.width=w;if(canvas.height!==h)canvas.height=h;$('dimensions').textContent=label;
  ctx.clearRect(0,0,w,h);ctx.fillStyle='#090909';ctx.fillRect(0,0,w,h);
- let path=project.backgroundData||(project.backgroundPreset==='origem'?'./assets/a-origem-fundo-oficial.png':null);
+ let path=project.backgroundData||(project.backgroundPreset==='origem'?'./assets/a-origem-fundo-oficial.jpg':null);
  let bg=imageFor(path);if(bg?.naturalWidth)cover(bg,w,h);
  if(project.overlayEnabled&&project.overlayOpacity>0){ctx.fillStyle=`rgba(0,0,0,${project.overlayOpacity})`;ctx.fillRect(0,0,w,h)}
  optionalPaint(w,h);
