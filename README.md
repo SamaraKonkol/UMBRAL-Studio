@@ -1,36 +1,55 @@
-# UMBRAL Studio v0.5
+# UMBRAL Studio 🖤 — v0.5 (beta)
 
-Versão ajustada conforme os feedbacks da Samara.
+Estúdio autoral de criação de posts e Stories do motogrupo UMBRAL, inspirado diretamente na arte **A Origem**.
 
-## Principais mudanças
+## Recursos presentes
 
-- Usa a **imagem original** de "A Origem" como fundo oficial do template.
-- **Sem escurecimento obrigatório** nas imagens; overlay agora é opcional e ajustável.
-- **Sem marca-d'água** do aplicativo na arte exportada.
-- **Posts e Stories separados** com tamanhos próprios.
-- Todos os elementos principais da composição podem ser:
-  - movidos no canvas
-  - redimensionados no canvas
-  - ajustados por controles no painel
-- Controles do elemento selecionado:
-  - tamanho da fonte
-  - largura do bloco
-  - alinhamento
-  - cor
-  - opacidade
-  - itálico
-  - escala (ornamento e brasão)
-- Estilo-base travado no DNA de **A Origem**, com apenas variações sutis.
-- Integração com nuvem e Nexforce preservada na estrutura do projeto.
+- **Post de feed** 1080×1350, quadrado 1080×1080 e **Story** 1080×1920.
+- Fundo oficial em `assets/a-origem-fundo-oficial.jpg`: mesma arte original, otimizada em JPEG para web (941×1672). A cópia PNG integral pode substituí-la mais tarde.
+- **Sem escurecimento obrigatório:** overlay desligado por padrão; ative e ajuste somente se desejar.
+- **Sem marca-d'água** do UMBRAL Studio nas artes exportadas.
+- Texto, título, ornamento e brasão com seleção, movimento e redimensionamento; fonte, cor, alinhamento, opacidade e itálico ajustáveis.
+- Arquivo local de projetos (IndexedDB) e exportação PNG.
+- Geração assistida de textos e legendas via Nexforce Router (após configurar API).
+- Estrutura de login e sincronização com Supabase, quando habilitado.
 
-## Fundo oficial
+> Esta é uma **beta de trabalho**, não uma versão publicada e validada em produção. Alterações em texto ocorrem por campos do inspetor, e os elementos editáveis atuais são título, chamada, texto, rodapé, ornamento e brasão. Edição por palavra e movimentação livre do fundo são melhorias futuras.
 
-Arquivo: `assets/a-origem-fundo-oficial.png`
+## Usar localmente
 
-## Como usar
+Requer Node.js 22 ou superior.
 
-Abra `index.html` localmente ou sirva a pasta com um servidor estático.
+```bash
+git clone https://github.com/SamaraKonkol/UMBRAL-Studio.git
+cd UMBRAL-Studio
+npm start
+```
 
-## Observação
+Abra `http://127.0.0.1:4173`. O editor funciona sem banco e sem IA. Se quiser ativar IA localmente, copie `.env.example` para `.env` e preencha **uma chave nova** e seu modelo Nexforce.
 
-A IA continua sendo apenas assistiva: a direção visual do UMBRAL continua sendo o padrão principal.
+## Preparar Vercel + Supabase
+
+1. Crie um projeto no Supabase e execute `db/schema.sql` no SQL Editor.
+2. Em Authentication, crie seu usuário e desative inscrições públicas. No painel da Vercel, defina:
+   - `SUPABASE_URL` — URL do projeto
+   - `SUPABASE_ANON_KEY` — chave publicável/anon
+   - `ALLOWED_EMAIL` — seu e-mail autorizado
+   - `NEXFORCE_API_KEY` — nova chave, somente no servidor
+   - `NEXFORCE_MODEL` — ID do modelo/roteador escolhido
+   - `NEXFORCE_BASE_URL` — `https://router.nexforce.ai/v1` (opcional)
+3. Importe este repositório como projeto na Vercel (site estático + rotas `api/`).
+4. Teste login, criação de post, salvar projeto e geração de texto após publicar.
+
+## Segurança
+
+**Nunca envie chaves, senhas ou o arquivo `.env` ao GitHub**. A chave Nexforce mostrada anteriormente no chat precisa ser revogada e substituída. O arquivo `.env.example` contém só campos vazios. A API hospedada valida a sessão Supabase e o e-mail permitido; o banco usa RLS por proprietário.
+
+O repositório é público, portanto não coloque nele fotos privadas de integrantes nem dados pessoais.
+
+## Identidade visual
+
+A referência não é o Canva: a arte **A Origem** dita composição, tipografia marfim em serifas, preto e vermelho carmesim. Novos efeitos permanecem opcionais. O sistema não deve criar estilos aleatórios.
+
+## Estado do projeto
+
+**Código no GitHub:** sim. **Deploy Vercel/Supabase configurado e testado:** ainda não.
