@@ -1,0 +1,13 @@
+{
+  "name": "umbral-studio",
+  "private": true,
+  "version": "0.5.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.mjs",
+    "check": "node --check app.js && node --check cloud.js && node --check server.mjs && node --check api/generate.js"
+  }
+}
