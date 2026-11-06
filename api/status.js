@@ -1,0 +1,2 @@
+import {reply,aiReady,cloudReady} from '../lib-api.mjs';
+export default function handler(req,res){if(req.method!=='GET')return reply(res,405,{error:'Método não permitido.'});reply(res,200,{aiConfigured:aiReady(),cloudConfigured:cloudReady()})}
