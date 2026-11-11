@@ -257,6 +257,14 @@ for(let id of ['kicker','title','subtitle','caption','briefing'])$(id).addEventL
 $('event-date').addEventListener('input',e=>{project.eventDate=e.target.value;draw()});
 $('format').addEventListener('change',e=>{
  let old=project.elements,newPos=positions(e.target.value);
+ // Mantém a variação editorial também ao alternar Post / Story.
+ if(project.template==='narrativa'){
+  newPos.kicker.y=.085;newPos.title.y=.17;newPos.title.fontSize=106;newPos.ornament.y=.29;
+  newPos.subtitle.y=.38;newPos.subtitle.fontSize=38;newPos.subtitle.maxWidth=.82;newPos.eventDate.y=.91;
+ }else if(project.template==='chamada'){
+  newPos.kicker.y=.14;newPos.title.y=.27;newPos.title.fontSize=104;newPos.ornament.y=.4;
+  newPos.subtitle.y=.47;newPos.subtitle.fontSize=45;newPos.subtitle.maxWidth=.77;newPos.eventDate.y=.82;
+ }
  for(let k of Object.keys(old))if(newPos[k])newPos[k]={...newPos[k],color:old[k].color,opacity:old[k].opacity,italic:old[k].italic};
  project.elements=newPos;project.format=e.target.value;selected=null;ui();
 });
