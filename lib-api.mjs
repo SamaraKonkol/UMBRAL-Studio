@@ -4,16 +4,17 @@ const fields={title:80,subtitle:1200,kicker:80,eventDate:80,caption:1100};
 const allowedCategories=new Set(['origem','encontro','boasvindas','comunicado']);
 const allowedFormats=new Set(['portrait','square','story']);
 const safeError='Falha ao consultar a IA. Confira os créditos, a chave e o modelo no painel da Nexforce.';
+const supabasePublicKey=()=>process.env.SUPABASE_PUBLISHABLE_KEY||process.env.SUPABASE_ANON_KEY;
 export const aiReady=()=>Boolean(process.env.NEXFORCE_API_KEY && process.env.NEXFORCE_MODEL);
-export const cloudReady=()=>Boolean(process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY && process.env.ALLOWED_EMAIL);
-export const publicConfig=()=>({cloud:cloudReady(),supabaseUrl:cloudReady()?process.env.SUPABASE_URL:undefined,supabaseAnonKey:cloudReady()?process.env.SUPABASE_ANON_KEY:undefined,aiConfigured:aiReady()});
+export const cloudReady=()=>Boolean(process.env.SUPABASE_URL && supabasePublicKey() && process.env.ALLOWED_EMAIL);
+export const publicConfig=()=>({cloud:cloudReady(),supabaseUrl:cloudReady()?process.env.SUPABASE_URL:undefined,supabaseAnonKey:cloudReady()?supabasePublicKey():undefined,aiConfigured:aiReady()});
 export function reply(res,status,data){res.statusCode=status;res.setHeader('Content-Type','application/json; charset=utf-8');res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');res.end(JSON.stringify(data))}
 export async function authorize(req){
   if(!cloudReady())return{ok:false,status:503,error:'Acesso privado ainda não configurado.'};
   let token=String(req.headers.authorization||'').replace(/^Bearer /i,'').trim();
   if(!token)return{ok:false,status:401,error:'Faça login para usar o Studio.'};
   try{
-    let r=await fetch(process.env.SUPABASE_URL.replace(/\/$/,'')+'/auth/v1/user',{headers:{authorization:'Bearer '+token,apikey:process.env.SUPABASE_ANON_KEY},signal:AbortSignal.timeout(10000)});
+    let r=await fetch(process.env.SUPABASE_URL.replace(/\/$/,'')+'/auth/v1/user',{headers:{authorization:'Bearer '+token,apikey:supabasePublicKey()},signal:AbortSignal.timeout(10000)});
     if(!r.ok)return{ok:false,status:401,error:'Sessão inválida.'};
     let user=await r.json();
     if(!user.id||String(user.email||'').toLowerCase()!==process.env.ALLOWED_EMAIL.toLowerCase())return{ok:false,status:403,error:'Conta não autorizada.'};

@@ -39,5 +39,23 @@ async function saveProject(p){
  body:JSON.stringify({id:p.id,owner_id:user.id,title:String(p.title||'Sem título').slice(0,150),format:p.format,data:p,updated_at:new Date(p.updated||Date.now()).toISOString()})});
  return true;
 }
-window.umbralCloud={init,signIn,signOut,bearer,saveProject,get cloud(){return!!cfg.cloud},get loggedIn(){return!!session?.access_token},get email(){return user?.email||''}};
+async function listProjects(){
+ if(!cfg.cloud)return [];
+ const response=await request(`${root(cfg.supabaseUrl)}/rest/v1/studio_projects?select=id,title,format,data,updated_at&order=updated_at.desc&limit=200`,{
+  headers:{...headers(),authorization:await bearer()}
+ });
+ if(!Array.isArray(response))throw Error('Resposta inválida ao listar projetos.');
+ return response.filter(p=>p&&p.id&&p.data&&typeof p.data==='object').map(p=>({
+  ...p.data,id:p.id,updated:Date.parse(p.updated_at)||p.data.updated||Date.now()
+ }));
+}
+async function removeProject(id){
+ if(!cfg.cloud)return false;
+ if(typeof id!=='string'||!id.trim())throw Error('Projeto inválido.');
+ await request(`${root(cfg.supabaseUrl)}/rest/v1/studio_projects?id=eq.${encodeURIComponent(id)}`,{
+  method:'DELETE',headers:{...headers(),authorization:await bearer()}
+ });
+ return true;
+}
+window.umbralCloud={init,signIn,signOut,bearer,saveProject,listProjects,removeProject,get cloud(){return!!cfg.cloud},get loggedIn(){return!!session?.access_token},get email(){return user?.email||''}};
 })();

@@ -317,7 +317,19 @@ $('save-project').addEventListener('click',async()=>{
 });
 function switchView(page){document.querySelectorAll('.view').forEach(e=>e.classList.toggle('active',e.id===`${page}-view`));document.querySelectorAll('.nav-btn').forEach(e=>e.classList.toggle('active',e.dataset.view===page));$('location-label').textContent=page.toUpperCase();if(page==='archive')showArchive()}
 async function showArchive(){
- let list=(await readAll()).sort((a,b)=>b.updated-a.updated),grid=$('archive-grid');grid.textContent='';
+ let local=await readAll(),list=local,grid=$('archive-grid');grid.textContent='';
+ if(cloud.cloud&&cloud.loggedIn&&cloud.listProjects){
+  try{
+   const online=await cloud.listProjects();
+   const byId=new Map(online.map(p=>[p.id,p]));
+   for(const p of local){
+    const remote=byId.get(p.id);
+    if(!remote||Number(p.updated||0)>=Number(remote.updated||0))byId.set(p.id,p);
+   }
+   list=[...byId.values()];
+  }catch(err){notify('Nuvem indisponível; exibindo projetos locais: '+err.message)}
+ }
+ list.sort((a,b)=>Number(b.updated||0)-Number(a.updated||0));
  if(!list.length){let d=document.createElement('div');d.className='empty-archive';d.textContent='Nenhum projeto salvo ainda.';grid.append(d)}
  for(let p of list){let card=document.createElement('button');card.className='archive-card',card.type='button';
  let thumb=document.createElement('div');thumb.className='archive-thumb';
@@ -326,7 +338,14 @@ async function showArchive(){
  let meta=document.createElement('div');meta.className='archive-meta';
  let date=document.createElement('span');date.textContent=new Date(p.updated).toLocaleDateString('pt-BR');
  let del=document.createElement('span');del.textContent='EXCLUIR ×';del.style.padding='5px';
- del.onclick=async e=>{e.stopPropagation();if(confirm('Excluir este projeto local?')){await deleteLocal(p.id);showArchive()}};
+ del.onclick=async e=>{
+   e.stopPropagation();
+   if(!confirm('Excluir este projeto do Studio?'))return;
+   try{
+    if(cloud.cloud&&cloud.loggedIn&&cloud.removeProject)await cloud.removeProject(p.id);
+    await deleteLocal(p.id);await showArchive();notify('Projeto excluído.');
+   }catch(err){notify('Não foi possível excluir: '+err.message)}
+  };
  meta.append(date,del);card.append(thumb,name,meta);card.onclick=()=>{checkpoint();project={...fresh(),...p,layers:p.layers||[],elements:{...positions(p.format),...p.elements}};selected=null;switchView('studio');ui();notify('Projeto restaurado.')};grid.append(card)}
 }
 document.querySelectorAll('[data-view]').forEach(btn=>btn.addEventListener('click',()=>switchView(btn.dataset.view)));
