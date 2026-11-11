@@ -90,3 +90,9 @@ O fundo oficial `A Origem`, os formatos de Instagram e a IA existente foram pres
 3. Configure no ambiente da Vercel: `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `ALLOWED_EMAIL`, `NEXFORCE_API_KEY` (uma chave **nova**, nunca a divulgada em mensagens) e `NEXFORCE_MODEL`.
 4. Teste login, salvamento e reabertura em outro navegador, IA e exportação PNG.
 5. Para restringir também a interface estática, habilite Deployment Protection na Vercel. O login do app protege seus dados e APIs, mas não torna os arquivos JavaScript secretos.
+
+### Proteções de implantação da v0.8
+
+O arquivo `vercel.json` inclui políticas de segurança: CSP com scripts locais, fontes do Google, requisições somente ao site e ao Supabase, proteção contra incorporação em iframes e bloqueio de permissões desnecessárias. Essas configurações não substituem login, regras RLS ou a proteção opcional da própria plataforma de hospedagem.
+
+Se você usar um domínio Supabase personalizado, revise a diretiva `connect-src` antes de publicar.
