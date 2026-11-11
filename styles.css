@@ -14,3 +14,6 @@
 #layer-text-wrap[hidden]{display:none}
 #layer-text-wrap textarea{margin-top:8px}
 .panel-actions button:disabled{opacity:.35;cursor:default}
+
+/* v0.7 — controle preciso */
+.precise-fields{margin-top:12px}.precise-fields input{font-variant-numeric:tabular-nums}.precise-actions{margin-top:10px}.precise-actions button{flex:1}.checkbox-line input[type=checkbox]{accent-color:#b9414b;cursor:pointer}

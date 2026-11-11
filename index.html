@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b0d0e" />
-  <title>UMBRAL Studio · v0.6</title>
+  <title>UMBRAL Studio · v0.7</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -25,10 +25,10 @@
       </nav>
       <div class="rail-spacer"></div>
       <div class="rail-note"><div class="small-ring"></div><p>ESTILO OFICIAL BASEADO EM<br><strong>A ORIGEM</strong></p></div>
-      <div class="rail-footer">UMBRAL <span>© STUDIO V0.6</span></div>
+      <div class="rail-footer">UMBRAL <span>© STUDIO V0.7</span></div>
     </aside>
     <main class="workarea">
-      <header class="topbar"><div class="breadcrumb">UMBRAL <span>/</span> <b id="location-label">ATELIER</b></div><div class="right-status"><span class="status-dot"></span> <span id="environment-label">MODO LOCAL</span> <span class="top-sep"></span> VERSÃO 0.6 <button id="logout" class="logout-btn" hidden>SAIR</button></div></header>
+      <header class="topbar"><div class="breadcrumb">UMBRAL <span>/</span> <b id="location-label">ATELIER</b></div><div class="right-status"><span class="status-dot"></span> <span id="environment-label">MODO LOCAL</span> <span class="top-sep"></span> VERSÃO 0.7 <button id="logout" class="logout-btn" hidden>SAIR</button></div></header>
 
       <section id="studio-view" class="view active">
         <div class="heading-row">
@@ -53,8 +53,10 @@
           <aside class="inspector">
             <div class="inspector-header"><div class="overline">DIREÇÃO CRIATIVA</div><div class="inspector-title">Modelo oficial UMBRAL.</div><p>Baseado em <strong>A Origem</strong>. As variações continuam dentro desse mesmo DNA.</p></div>
 
+            <div class="field"><label for="template">MODELO VISUAL · MESMA IDENTIDADE</label><select id="template"><option value="origem">A Origem · Clássico</option><option value="narrativa">A Origem · Narrativa</option><option value="chamada">A Origem · Chamada</option></select><p class="helper">Apenas variações sutis da composição, sem apagar texto nem camadas extras.</p></div>
             <div class="field"><label for="background-preset">FUNDO OFICIAL</label><select id="background-preset"><option value="origem">A Origem · Oficial</option><option value="custom">Minha imagem importada</option><option value="none">Sem fundo · Preto profundo</option></select><p class="helper">Agora usamos a imagem original como padrão.</p></div>
 
+            <div class="field"><label for="background-fit">ENQUADRAMENTO DO FUNDO</label><select id="background-fit"><option value="cover">Preencher · pode recortar</option><option value="contain">Imagem inteira · possíveis margens</option></select></div>
             <div class="field two-col">
               <div><label for="overlay-enabled">ESCURECIMENTO</label><select id="overlay-enabled"><option value="off">Desligado</option><option value="on">Ligado</option></select></div>
               <div><label for="overlay-opacity">INTENSIDADE</label><input id="overlay-opacity" type="range" min="0" max="80" value="0" /></div>
@@ -80,6 +82,13 @@
             <div class="field selector-box">
               <label>ELEMENTO SELECIONADO</label>
               <div id="selected-label" class="selected-badge">Nenhum</div>
+              <div class="two-col precise-fields">
+                <div><label for="coord-x">X · PIXELS</label><input id="coord-x" type="number" step="1" min="0" disabled /></div>
+                <div><label for="coord-y">Y · PIXELS</label><input id="coord-y" type="number" step="1" min="0" disabled /></div>
+              </div>
+              <div class="layer-actions precise-actions"><button type="button" id="center-x" disabled>Centro horizontal</button><button type="button" id="center-y" disabled>Centro vertical</button></div>
+              <label class="checkbox-line"><input id="snap-enabled" type="checkbox" checked /> Ativar guias magnéticas</label>
+              <p class="helper">Setas movem 1 pixel; Shift + seta move 10 pixels. Guias não saem no PNG.</p>
               <div class="two-col compact-grid">
                 <div><label for="font-size">TAMANHO DA FONTE</label><input id="font-size" type="range" min="12" max="160" value="44" /></div>
                 <div><label for="box-width">LARGURA DO BLOCO</label><input id="box-width" type="range" min="10" max="95" value="72" /></div>
@@ -146,6 +155,7 @@
   </div>
   <script src="cloud.js"></script>
   <script src="richtext.js"></script>
+  <script src="editor-geometry.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

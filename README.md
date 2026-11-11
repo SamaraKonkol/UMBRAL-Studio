@@ -66,3 +66,9 @@ A referência não é o Canva: a arte **A Origem** dita composição, tipografia
 
 O fundo oficial `A Origem`, os formatos de Instagram e a IA existente foram preservados.
 
+
+## Versão 0.7 — controle de composição
+- Três modelos da identidade visual **A Origem**: Clássico, Narrativa e Chamada. As variações não apagam textos ou camadas adicionais.
+- Posições X/Y em pixels, botões de centralização, teclas de seta (1 px; Shift = 10 px) e guias magnéticas opcionais.
+- Enquadramento do fundo em "preencher" ou "imagem inteira", preservando cores sem escurecimento automático.
+- Guias de edição são omitidas no PNG. Projeto salvo continua compatível com a v0.6.
