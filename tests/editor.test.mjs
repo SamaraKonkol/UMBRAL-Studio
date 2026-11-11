@@ -15,7 +15,7 @@ test('destaques vermelhos são delimitados por asteriscos',()=>{
  assert.equal(tokens.some(x=>x.text==='Tudo'&&!x.accent),true);
 });
 test('layout preserva parágrafos e quebra linhas',()=>{
- const lines=layout('Primeira linha\\n\\nMais uma frase longa',s=>s.length*10,85);
+ const lines=layout('Primeira linha\n\nMais uma frase longa',s=>s.length*10,85);
  assert.ok(lines.length>=4);
  assert.equal(lines[1].items.length,0);
 });
