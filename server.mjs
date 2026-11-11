@@ -5,7 +5,7 @@ const require=createRequire(import.meta.url);
 const http=require('node:http'),fs=require('node:fs'),path=require('node:path');
 const root=process.cwd(),host='127.0.0.1',port=Number(process.env.PORT||4173);
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.jpg':'image/jpeg','.png':'image/png'};
-const paths=new Set(['/','/index.html','/styles.css','/app.js','/cloud.js','/assets/a-origem-fundo-oficial.jpg','/assets/a-origem-fundo-oficial.png']);
+const paths=new Set(['/','/index.html','/styles.css','/app.js','/cloud.js','/richtext.js','/editor-geometry.js','/assets/a-origem-fundo-oficial.jpg','/assets/a-origem-fundo-oficial.png']);
 const send=(res,status,data)=>{res.writeHead(status,{'content-type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(data))};
 const aiReady=()=>!!(process.env.NEXFORCE_API_KEY&&process.env.NEXFORCE_MODEL);
 const categories=new Set(['origem','encontro','boasvindas','comunicado']),formats=new Set(['portrait','square','story']);

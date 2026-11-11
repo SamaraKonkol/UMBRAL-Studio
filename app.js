@@ -361,8 +361,25 @@ document.addEventListener('keydown',e=>{
  if(key==='s'){e.preventDefault();$('save-project').click()}
  else if((key==='z'||key==='y')&&!['TEXTAREA','INPUT'].includes(e.target.tagName)){e.preventDefault();if(key==='y'||e.shiftKey)redo();else undo()}
 });
-const gate=$('login-gate');gate.hidden=true;
-if(cloud.init)cloud.init().then(x=>{if(x?.cloud){gate.hidden=!(!x.loggedIn);$('logout').hidden=!x.loggedIn;$('environment-label').textContent=x.loggedIn?'NUVEM ATIVA':'ACESSO PRIVADO'}else{$('environment-label').textContent='MODO LOCAL'}}).catch(()=>{$('environment-label').textContent='MODO LOCAL'});
+const gate=$('login-gate');
+const localHost=location.protocol==='file:'||['localhost','127.0.0.1','::1','[::1]'].includes(location.hostname);
+function blockUnconfigured(){
+ gate.hidden=false;
+ $('logout').hidden=true;
+ $('environment-label').textContent='CONFIGURAÇÃO PENDENTE';
+ $('login-error').textContent='A versão hospedada precisa da autenticação Supabase configurada para liberar o Studio.';
+ for(const id of ['login-email','login-password','login-submit'])$(id).disabled=true;
+}
+// No servidor público o bloqueio permanece visível até a sessão ser verificada.
+gate.hidden=localHost;
+if(cloud.init)cloud.init().then(x=>{
+ if(x?.cloud){
+  gate.hidden=Boolean(x.loggedIn);
+  $('logout').hidden=!x.loggedIn;
+  $('environment-label').textContent=x.loggedIn?'NUVEM ATIVA':'ACESSO PRIVADO';
+ }else if(localHost){gate.hidden=true;$('environment-label').textContent='MODO LOCAL'}
+ else blockUnconfigured();
+}).catch(()=>{if(localHost){gate.hidden=true;$('environment-label').textContent='MODO LOCAL'}else blockUnconfigured()});
 $('login-form').addEventListener('submit',async e=>{e.preventDefault();try{await cloud.signIn($('login-email').value,$('login-password').value);gate.hidden=true;$('logout').hidden=false;$('environment-label').textContent='NUVEM ATIVA'}catch(err){$('login-error').textContent=err.message}});
 $('logout').addEventListener('click',async()=>{if(cloud.signOut)await cloud.signOut();gate.hidden=false;$('logout').hidden=true;$('environment-label').textContent='ACESSO PRIVADO'});
 ui();updateHistoryButtons();if(document.fonts?.ready)document.fonts.ready.then(draw);
