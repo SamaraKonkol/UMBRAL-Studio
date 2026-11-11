@@ -8,7 +8,7 @@ const format={
  story:{w:1080,h:1920,label:'1080 × 1920 PX'}
 };
 const copy={
- origem:{name:'A Origem',kicker:'A',title:'ORIGEM',subtitle:'Tudo começou com um *sonho.*\n\nAntes de existir uma frota, uma sede ou qualquer estrada marcada com o nosso nome, existia apenas a vontade de conquistar a liberdade sobre duas rodas.\n\nA Umbral nasceu da necessidade de *pertencimento, apoio e evolução.*',eventDate:'',caption:'Tudo começou com um sonho. O UMBRAL nasceu do desejo de construir pertencimento, apoio e evolução.'},
+ origem:{name:'A Origem',kicker:'A',title:'ORIGEM',subtitle:'Tudo começou com um *sonho.*\n\nAntes de existir uma frota, uma sede ou qualquer estrada marcada com o nosso nome, existia apenas a vontade de conquistar a liberdade sobre duas rodas.\n\nA Umbral nasceu da necessidade de *pertencimento, apoio e evolução.*\n\nDe um desejo genuíno de reunir pessoas que, assim como eu, buscavam mais que motocicletas: buscavam lugar, propósito e irmandade.',eventDate:'',caption:'Tudo começou com um sonho. O UMBRAL nasceu do desejo de construir pertencimento, apoio e evolução.'},
  encontro:{name:'Encontro oficial',kicker:'UMBRAL',title:'A ESTRADA NOS CHAMA',subtitle:'O que nos une vai muito além do caminho. A estrada é apenas o começo.',eventDate:'DATA A DEFINIR',caption:'Um encontro de pessoas e propósitos, além das motocicletas.'},
  boasvindas:{name:'Boas-vindas',kicker:'UMBRAL',title:'SEJA BEM-VINDO',subtitle:'Toda história importa. Toda presença fortalece a irmandade.',eventDate:'',caption:'Seja bem-vindo ao UMBRAL.'},
  comunicado:{name:'Comunicado',kicker:'UMBRAL',title:'ATENÇÃO, IRMANDADE',subtitle:'Informações importantes para quem constrói essa história conosco.',eventDate:'COMUNICADO OFICIAL',caption:'Comunicado oficial do UMBRAL.'}
