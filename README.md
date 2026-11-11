@@ -53,3 +53,16 @@ A referência não é o Canva: a arte **A Origem** dita composição, tipografia
 ## Estado do projeto
 
 **Código no GitHub:** sim. **Deploy Vercel/Supabase configurado e testado:** ainda não.
+
+## Novidades v0.6 — editor com camadas
+
+- **Texto independente:** use `+ TEXTO` para inserir blocos extras que podem ser arrastados e redimensionados.
+- **Imagens independentes:** use `+ IMAGEM` para criar objetos sobre o fundo, sem filtro escuro automático.
+- **Camadas:** selecione, oculte, duplique, exclua e reordene elementos extras. Os elementos-base podem ser ocultados e reexibidos na lista.
+- **Destaques editoriais:** escreva `*sonho*` ou `*pertencimento, apoio e evolução*` para aplicar vermelho e itálico às palavras entre asteriscos, sem alterar o restante do parágrafo.
+- **Desfazer/refazer:** botões ↶ e ↷, além de Ctrl+Z/Ctrl+Y quando o foco não está em campos de texto.
+- **Compatibilidade:** projetos v0.5 já salvos continuam válidos; camadas extras usam uma nova propriedade opcional `layers`.
+- **Exportação:** PNG sem marca-d'água e sem contornos de seleção.
+
+O fundo oficial `A Origem`, os formatos de Instagram e a IA existente foram preservados.
+

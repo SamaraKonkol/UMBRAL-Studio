@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b0d0e" />
-  <title>UMBRAL Studio · v0.5</title>
+  <title>UMBRAL Studio · v0.6</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -25,10 +25,10 @@
       </nav>
       <div class="rail-spacer"></div>
       <div class="rail-note"><div class="small-ring"></div><p>ESTILO OFICIAL BASEADO EM<br><strong>A ORIGEM</strong></p></div>
-      <div class="rail-footer">UMBRAL <span>© STUDIO V0.5</span></div>
+      <div class="rail-footer">UMBRAL <span>© STUDIO V0.6</span></div>
     </aside>
     <main class="workarea">
-      <header class="topbar"><div class="breadcrumb">UMBRAL <span>/</span> <b id="location-label">ATELIER</b></div><div class="right-status"><span class="status-dot"></span> <span id="environment-label">MODO LOCAL</span> <span class="top-sep"></span> VERSÃO 0.5 <button id="logout" class="logout-btn" hidden>SAIR</button></div></header>
+      <header class="topbar"><div class="breadcrumb">UMBRAL <span>/</span> <b id="location-label">ATELIER</b></div><div class="right-status"><span class="status-dot"></span> <span id="environment-label">MODO LOCAL</span> <span class="top-sep"></span> VERSÃO 0.6 <button id="logout" class="logout-btn" hidden>SAIR</button></div></header>
 
       <section id="studio-view" class="view active">
         <div class="heading-row">
@@ -44,7 +44,7 @@
           <section class="canvas-panel">
             <div class="panel-heading">
               <div><span class="overline">COMPOSIÇÃO EM FOCO</span><h2 id="project-name">A Origem</h2></div>
-              <div class="panel-actions"><select id="format"><option value="portrait">FEED · 4:5</option><option value="square">QUADRADO · 1:1</option><option value="story">STORY · 9:16</option></select><button id="download-png">↓ EXPORTAR</button></div>
+              <div class="panel-actions"><button id="undo" title="Desfazer" disabled>↶</button><button id="redo" title="Refazer" disabled>↷</button><select id="format"><option value="portrait">FEED · 4:5</option><option value="square">QUADRADO · 1:1</option><option value="story">STORY · 9:16</option></select><button id="download-png">↓ EXPORTAR</button></div>
             </div>
             <div class="workbench"><div class="stage-frame"><canvas id="artboard" width="1080" height="1350" tabindex="0"></canvas></div></div>
             <div class="stage-footer"><span>ARRASTE E REDIMENSIONE OS ELEMENTOS NA ARTE</span><span id="dimensions">1080 × 1350 PX</span></div>
@@ -72,6 +72,7 @@
             <div class="field"><label for="category">TIPO DE PUBLICAÇÃO</label><select id="category"><option value="origem">A Origem / Manifesto</option><option value="encontro">Encontro / Comboio</option><option value="boasvindas">Boas-vindas</option><option value="comunicado">Comunicado</option></select></div>
             <div class="field"><label for="kicker">CHAMADA SUPERIOR</label><input id="kicker" maxlength="80" /></div>
             <div class="field"><label for="title">TÍTULO PRINCIPAL</label><textarea id="title" rows="2" maxlength="80"></textarea></div>
+            <div class="field"><p class="helper">Para destacar uma palavra em vermelho itálico, escreva entre *asteriscos*. Ex.: Tudo começou com um *sonho*.</p></div>
             <div class="field"><label for="subtitle">TEXTO PRINCIPAL</label><textarea id="subtitle" rows="8" maxlength="1200"></textarea></div>
             <div class="field"><label for="event-date">RODAPÉ / DATA</label><input id="event-date" maxlength="80" /></div>
             <div class="field"><label for="caption">LEGENDA DO INSTAGRAM</label><textarea id="caption" rows="4" maxlength="1100"></textarea><button id="copy-caption" class="secondary-wide">COPIAR LEGENDA</button></div>
@@ -94,6 +95,25 @@
               <label class="checkbox-line"><input id="element-italic" type="checkbox" /> Itálico</label>
             </div>
 
+            <div class="field">
+              <label>CAMADAS & ELEMENTOS LIVRES</label>
+              <div class="layer-actions">
+                <button id="add-text-layer" type="button">+ TEXTO</button>
+                <label for="image-layer-upload" class="layer-upload">+ IMAGEM</label>
+                <input id="image-layer-upload" type="file" accept="image/*" hidden />
+                <button id="duplicate-layer" type="button" disabled>DUPLICAR</button>
+                <button id="delete-layer" type="button" disabled>EXCLUIR</button>
+              </div>
+              <div id="layer-text-wrap" hidden>
+                <label for="layer-text">EDITAR TEXTO SELECIONADO</label>
+                <textarea id="layer-text" rows="3" placeholder="Digite seu texto. Use *asteriscos* para destacar palavras."></textarea>
+              </div>
+              <div class="layer-actions">
+                <button id="layer-down" type="button" disabled>↓ ATRÁS</button>
+                <button id="layer-up" type="button" disabled>↑ FRENTE</button>
+              </div>
+              <div id="layer-list" class="layer-list" aria-label="Lista de camadas"></div>
+            </div>
             <div class="field ai-section"><label for="briefing">DIREÇÃO PARA A IA <span class="tag">NEXFORCE ROUTER</span></label><textarea id="briefing" rows="3" maxlength="1500" placeholder="Ex.: carrossel sobre a origem do UMBRAL, mantendo o mesmo clima de A Origem..."></textarea><button id="generate-ai" class="primary-wide ai-generate">✧ GERAR COM IA <span>↗</span></button><button id="draft" class="secondary-wide">SUGESTÃO OFFLINE</button><p class="helper" id="ai-status">A IA deve sugerir dentro do estilo oficial, sem inventar moda.</p></div>
 
             <div class="inspector-bottom">
@@ -125,6 +145,7 @@
     </form>
   </div>
   <script src="cloud.js"></script>
+  <script src="richtext.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
